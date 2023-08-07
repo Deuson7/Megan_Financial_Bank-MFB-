@@ -15,7 +15,7 @@ bool MATCH = false;
 /////////////////////////////////////////////////////////////////
 ///////////////PASSWORD SCANNER FOR SAVINGS ACCOUNT//////////////
 /////////////////////////////////////////////////////////////////
-bool pass_scan(Savings_Acc& Acc) {
+bool password_Scanner(Savings_Acc& Acc) {
     int count = 3;
     bool found = false;
     bool invalid = false;
@@ -67,7 +67,7 @@ int searching_sys(Savings_Acc& Acc , string ACC_NAME) {
     int fileIndex = 0;
 
     fstream search;
-    search.open("Data\\Acc data1.bin" , ios::in | ios::binary);
+    search.open("Data\\data file_1.bin" , ios::in | ios::binary);
     search.read(reinterpret_cast<char*> (&Acc) , sizeof(Acc));
    
     while (search.eof() != true) {

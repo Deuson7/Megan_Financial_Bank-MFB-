@@ -1,3 +1,4 @@
+//Created by Muhumuza Deus Mugenyi, muhumuzadeus7@gmail.com
 #include <iostream>
 #include <iomanip>
 #include <limits>
@@ -10,8 +11,8 @@
 #include "OtherFunctions.h"
 using namespace std;
 
+//A Console Application
 
-//Created by Muhumuza Deus Mugenyi, muhumuzadeus7@gmail.com
 /* NOTE: Functions and Classes below the label "multiple" 
 indicate that the same function is to be re-written to facilitate
 that function's functionality for a different type of bank account
@@ -19,7 +20,7 @@ through tiny modifications(such as function name , prompt strings etc )
 on the duplicated function to match the bank account type's functionality*/
 
 int main() {
-    //Important variables
+    ////////Important variables
     ///////////////////////////
     int trials = 3;
     string user_pin;
@@ -49,20 +50,21 @@ int main() {
             option = lobby_2();
             if (option == 1) {
                 fstream accData;
-                //Open the Acc data1.bin file in binary and input mode
-                accData.open("Data\\Acc data1.bin" , ios::in | ios::binary);
+                //Open the data file_1.bin file in binary and input mode
+                accData.open("Data\\data file_1.bin" , ios::in | ios::binary);
 
                 //Stores the position of the matching account
                 int acc_position;
 
                 Savings_Acc myaccount; //Create a Savings_Acc object
-                Savings_Acc& myaccount_ref = myaccount;
                 string acc_Name; //store provided account name
 
                 spacer(1); //Create 3 blank lines
 
                 cout << "\t\t\t\tEnter Your Savings Account Name(";
                 cout << trials << " attempts)" << endl;
+                cout << "\t\t\t\tTip: It should exactly match with the set";
+                cout << " acc. name during your acc. creation" << endl; 
                 cout << "\t\t\t\t>> ";
                 //Expect no matching account name exception
                 //to be thrown in some cases
@@ -98,13 +100,10 @@ int main() {
 
                 spacer(1); //Create 3 blank lines
 
-                ACCESS = pass_scan(myaccount);
+                ACCESS = password_Scanner(myaccount);
 
                 //Access Personal Account Information
                 if (ACCESS) {
-                    /* thread t_one(interestRATE , myaccount);
-                    t_one.detach(); */
-
                     /////////////////////////////
                     S_Account(acc_position , num);
                     /////////////////////////////

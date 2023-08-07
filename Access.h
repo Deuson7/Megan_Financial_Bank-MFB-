@@ -23,17 +23,20 @@ void S_Account(int fileIndex , int num) {
     Savings_Acc& temp_acc_ref = temp_acc;
 
     fstream update;
-    update.open("Data\\Acc data1.bin" , ios::out | ios::in | ios::binary);
+    update.open("Data\\data file_1.bin" , ios::out | ios::in | ios::binary);
     update.seekg(fileIndex , ios::beg);
     update.read(reinterpret_cast<char*> (&temp_acc) , sizeof(temp_acc));
 
 
     int choice;
-    long double amount;
+    string new_pin;
+    long double deposit_amount;
+    long double withdraw_amount;
+    long double debt_amount;
+    long double pay_amount;
 
-    cout << endl;
-    cout << endl;
-    cout << endl;
+   spacer(10);// Create 6 blank spaces
+
     cout << "----------------------------------------";
     cout << "--------------------" << (num + 1) << "-------------------";
     cout << "----------------------------------------" << endl;
@@ -55,10 +58,12 @@ void S_Account(int fileIndex , int num) {
     cout << "\t\t\t\t\t\t   3---------Take A Loan" << endl;
     cout << "\t\t\t\t\t\t   4---------Pay Loan" << endl;
     cout << "\t\t\t\t\t\t   5---------Change Pin" << endl;
+    cout << "\t\t\t\t\t\t   6---------My Bank Statement" << endl;
+
     cout << endl;
     cout << "\t\t\t\t\t\t   0------Exit" << endl;
     cout << endl;
-    choice = scanUser_input(0 , 5 , "\t\t\t\t\t\t   OPTION >> ");
+    choice = scanUser_input(0 , 6 , "\t\t\t\t\t\t   OPTION >> ");
 
     switch (choice) {
         case 0:
@@ -69,27 +74,27 @@ void S_Account(int fileIndex , int num) {
             spacer(1); //Create 1 blank spaces
 
             cout << "\t\t\t\t\t\t   Enter Amount Of Deposit: ";
-            cin >> amount;
-            temp_acc.deposit(amount);
+            cin >> deposit_amount;
+            temp_acc.deposit(deposit_amount);
             //Function to count the number of deposits made.
             temp_acc.addCountDeposits();
 
             spacer(3); //Create 3 blank spaces
 
-            cout << "\t\t\t\t\t\t   You have deposited Shs." << amount << " to your account" << endl;
+            cout << "\t\t\t\t\t\t   You have deposited Shs." << deposit_amount << " to your account" << endl;
             break;
         case 2:
 
             spacer(1); //Create 1 blank spaces
 
             cout << "\t\t\t\t\t\t   Enter Amount You Want To Withdraw: ";
-            cin >> amount;
-            temp_acc.withdraw(amount);
+            cin >> withdraw_amount;
+            temp_acc.withdraw(withdraw_amount);
 
             spacer(4); // Create 4 blank lines
             
             cout << "\t\t\t\t\t\t   Dear " << temp_acc.getName();
-            cout << " you have withdrawn Shs." << amount << endl;
+            cout << " you have withdrawn Shs." << withdraw_amount << endl;
             cout << "\t\t\t\t\t\t   Your total balance is now Shs." << temp_acc.getBalance() << endl;
             break;
         case 3:
@@ -97,8 +102,8 @@ void S_Account(int fileIndex , int num) {
             spacer(1); //Create 1 blank spaces
         
             cout << "\t\t\t\t\t\t   Enter Amount Of Debt: ";
-            cin >> amount;
-            temp_acc.setLoan(amount);
+            cin >> debt_amount;
+            temp_acc.setLoan(debt_amount);
             
             spacer(3); //Create 3 blank spaces
 
@@ -110,23 +115,22 @@ void S_Account(int fileIndex , int num) {
             spacer(1); //Create 1 blank spaces
 
             cout << "\t\t\t\t\t\t   Enter Amount To Be Cleared From Your Outstanding Debt: ";
-            cin >> amount;
-            temp_acc.payLOAN(amount);
+            cin >> pay_amount;
+            temp_acc.payLOAN(pay_amount);
             
             spacer(3); //Create 3 blank spac3es
 
-            if (amount > temp_acc.getLoan()) {
+            if (pay_amount > temp_acc.getLoan()) {
                 cout << "\t\t\t\t\t\t   You have payed Ugx." << temp_acc.getLoan() << endl;
                 temp_acc.resetLoan();
             }
             else {
-                cout << "\t\t\t\t\t\t   You have payed Ugx." << amount << endl;
+                cout << "\t\t\t\t\t\t   You have payed Ugx." << debt_amount << endl;
             }
             cout << "\t\t\t\t\t\t   Your current debt is Shs.-" << temp_acc.getLoan() << endl;
             cout << "\t\t\t\t\t\t   Your current account balance is Shs." << temp_acc.getBalance() << endl; 
             break;
         case 5:
-            string new_pin;
 
             spacer(1); //Create 1 blank spaces
             
@@ -135,7 +139,13 @@ void S_Account(int fileIndex , int num) {
             cin.ignore(numeric_limits<streamsize>::max() , '\n');
             temp_acc.setPin(new_pin);
             break;
+        case 6:
+            return_B_statement(temp_acc.getName() , "Savings account" , (num + 1));
+            break;
     }
+
+    bank_Statement(deposit_amount , withdraw_amount , debt_amount , temp_acc.getName() , temp_acc.getBalance());
+
     update.seekg(fileIndex , ios::beg);
     update.write(reinterpret_cast<char*> (&temp_acc) , sizeof(temp_acc));
 

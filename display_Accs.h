@@ -21,11 +21,12 @@ void saveAcc(string ACC_NAME , string ACC_TYPE) {
 
 
     fstream save;
-    save.open("Data\\data.bin" , ios::out | ios::app | ios::binary);
+    save.open("Data\\data file_0.bin" , ios::out | ios::app | ios::binary);
     save.write(reinterpret_cast<char *> (&info) , sizeof(info));
 
     save.close();
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 void dispAcc() {
@@ -39,7 +40,7 @@ void dispAcc() {
     AccInfo info;
 
     ifstream read_data;
-    read_data.open("Data\\data.bin" , ios::in | ios::binary);
+    read_data.open("Data\\data file_0.bin" , ios::in | ios::binary);
     read_data.read(reinterpret_cast<char *> (&info) , sizeof(info));
 
     //loop through the Available acc bin file while displaying
