@@ -5,4 +5,4 @@ Certain parts of the source code have been commented out to describe what these 
 An AUTHENTICATION SYSTEM is created to ensure secure access and protection of each account's data.
 An EXCEPTION HANDLING SYSTEM is created to prevent users from entering wrong data at all scenarios into the program which would otherwise cause it to break.
 More detail of the program's functionality can be found in the source code, please note that this program only runs from the terminal.
-Please note that for the proper functionality of the program a folder named Data MUST be created in the source files directory and inside the Data folder, another folder named Statement files is to be created. 
+Note that for the proper functionality of the program a folder named "Data" MUST be created in the source files directory and inside the "Data" folder, another folder named "Statement files" is to be created. 
